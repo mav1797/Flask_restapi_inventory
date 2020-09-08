@@ -3,7 +3,7 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 
 from resources.user import UserRegister,User,UserLogin
-from resources.product import Product,Products
+from resources.product import Product,Products,Category
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -30,8 +30,8 @@ api.add_resource(UserRegister,'/register')
 api.add_resource(User,'/user/<string:username>')
 # USER Login | pass->username and password
 api.add_resource(UserLogin,'/login')
-
-
+# Search by Category
+api.add_resource(Category,'/category/<string:category_name>')
 
 if __name__=='__main__':
     from db import db

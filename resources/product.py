@@ -73,7 +73,8 @@ class Product(Resource):
             return {'message':'Product deleted.'},200
 
         return {'message':'Product not found.'},404
-# update quantity of product
+
+    # update quantity of product
     def put(self,product_name):
         item = ProductModel.find_by_name(product_name)
         parser = reqparse.RequestParser()
@@ -90,7 +91,17 @@ class Product(Resource):
 
         return {'message':'Product name not found'},404
 
+
 # fetch all the products stored in database
 class Products(Resource):
     def get(self):
         return {'items':list(map(lambda x:x.json(),ProductModel.query.all()))}
+
+
+class Category(Resource):
+    def get(self,category_name):
+        data=ProductModel.find_by_product_category(category_name)
+        if data:
+            return {'items':list(map(lambda x:x.json(),data.all()))},200
+
+        return {"message","Enter category"},404

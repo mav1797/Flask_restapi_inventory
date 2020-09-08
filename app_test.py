@@ -5,6 +5,7 @@ import requests
 class AppTest(unittest.TestCase):
     API_URL = "http://127.0.0.1:5000"
     PRODUCT_URL = "{}/product".format(API_URL)
+    CATEGORY_URL="{}/category".format(API_URL)
     PRODUCT_NAME = "item3"
     PRODUCT_OBJ = {
         "price":10,
@@ -60,3 +61,8 @@ class AppTest(unittest.TestCase):
     def test_10_delete_user(self):
         r = requests.delete("{}/user/{}".format(AppTest.API_URL,AppTest.USER_OBJ["username"]),json=AppTest.USER_OBJ)
         self.assertEqual(r.status_code,200)
+
+    def test_5_search_by_category(self):
+        r = requests.get("{}/{}".format(AppTest.CATEGORY_URL,AppTest.PRODUCT_OBJ["product_category"]))
+        self.assertEqual(r.status_code,200)
+
